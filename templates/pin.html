@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PIN Entry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 text-center">
+                <h1 class="mb-3">PIN Entry</h1>
+                {% if selected_locker %}
+                <div class="alert alert-info mb-3 text-center">
+                    Selected Locker: <strong>{{ selected_locker }}</strong>
+                </div>
+                {% endif %}
+
+                {% if messages %}
+                <div>
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form method="post" class="mx-auto text-center" style="max-width:360px;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="pin" class="form-label">Enter PIN</label>
+                        <input id="pin" name="pin" type="password" class="form-control mx-auto w-75" required autofocus>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <a class="btn btn-secondary ms-2" href="{% url 'home' %}">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
